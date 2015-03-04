@@ -1,301 +1,123 @@
 package com.mkarasz.hw5.playTone;
 
+/**
+ * A class to generate linear pcm data based on
+ * the MIDI class you developed in HW 4. 
+ * 
+ * Creates a byte stream for playback by the Tone class.
+ * 
+ * todo: You need to make setNote use the MIDI class you wrote in HW 4 and the Tempo class
+ * 
+ * 
+ */
 
 public class Note {
-		
-	private enum NoteEnum { //made this to make switching easier
-		C, CSHARP, D, DSHARP, E, F, FSHARP, G, GSHARP, A, ASHARP, B
-	}
-	
-	NoteValue length;
-	int midiNumber = 0;
-	
+
+	private byte[] note;
+	private int sampleRate;
+	private static final int KILO_HERTZ = 1024;
+
+
 	/**
-	 * Sets the MIDI to the default stuff, as seen in default helper method below.
-	 */
-	public Note(){
-		setNoteDefault();
-	}
-	
-	/** Parses out the string note and sets the length
-	 * @param note
-	 * @param length
-	 */
-	public Note(String note, NoteValue length){
-		this.length = length;
-		NoteEnum noteEnum = NoteEnum.A;
-		String letter;
-		int octave = 0;
-		
-		if(note.matches("^[A-G]{1}[#]?[-]?[0-9]{1}$")) {
-			if(note.matches("[A-G]{1}[#]?[-]+[2-9]{1}")){ //checking for octaves less than -1
-				setNoteDefault();
-				System.out.println("Your note " + note + " was out of range. Setting to C4 Quarter note.");
-				return;
-			}
-			else if (note.matches("[A,B]{1}[#]?[9]{1}")) { //checking for A9, A#9, and B9
-				setNoteDefault();
-				System.out.println("Your note " + note + " was out of range. Setting to C4 Quarter note.");
-				return;
-			}
-			else if (note.equals("G#9")){ //couldn't do above cause G9 is valid, but G#9 isn't 
-				setNoteDefault();
-				System.out.println("Your note " + note + " was out of range. Setting to C4 Quarter note.");
-				return;
-			}
-			else{
-				if(note.matches("[A-G]{1}[#]{1}.*")) {
-					letter = note.substring(0, 1);
-					if (letter.equals("A")){
-						noteEnum = NoteEnum.ASHARP;
-					}
-					else if (letter.equals("C")){
-						noteEnum = NoteEnum.CSHARP;
-					}
-					else if (letter.equals("D")){
-						noteEnum = NoteEnum.DSHARP;
-					}
-					else if (letter.equals("F")){
-						noteEnum = NoteEnum.FSHARP;
-					}
-					else
-						noteEnum = NoteEnum.GSHARP;
-					
-					letter = note.substring(2);
-					//System.out.println("" + letter + " what you entered.");
-					octave = Integer.parseInt(letter);
-				}
-				else {
-					letter = note.substring(0, 1);
-					if (letter.equals("A")){
-						noteEnum = NoteEnum.A;
-					}
-					else if (letter.equals("B")){
-						noteEnum = NoteEnum.B;
-					}
-					else if (letter.equals("C")){
-						noteEnum = NoteEnum.C;
-					}
-					else if (letter.equals("D")){
-						noteEnum = NoteEnum.D;
-					}
-					else if (letter.equals("E")){
-						noteEnum = NoteEnum.E;
-					}
-					else if (letter.equals("F")){
-						noteEnum = NoteEnum.F;
-					}
-					else
-						noteEnum = NoteEnum.G;
-					
-					letter = note.substring(1);
-					octave = Integer.parseInt(letter);
-				}
-			}
-		}
-		else {
-			System.out.println("Your note " + note + " was out of range. Setting to C4 Quarter note.");
-			setNoteDefault();
-			return;
-		}
-		
-		switch (noteEnum){//performs calulation with offset
-		case A:
-			this.midiNumber = (69 + 0) + (octave - 4) * 12;
-			break;
-		case ASHARP:
-			this.midiNumber = (69 + 1) + (octave - 4) * 12;
-			break;
-		case B:
-			this.midiNumber = (69 + 2) + (octave - 4) * 12;
-			break;
-		case C:
-			this.midiNumber = (69 - 9) + (octave - 4) * 12;
-			break;
-		case CSHARP:
-			this.midiNumber = (69 - 8) + (octave - 4) * 12;
-			break;
-		case D:
-			this.midiNumber = (69 - 7) + (octave - 4) * 12;
-			break;
-		case DSHARP:
-			this.midiNumber = (69 - 6) + (octave - 4) * 12;
-			break;
-		case E:
-			this.midiNumber = (69 - 5) + (octave - 4) * 12;
-			break;
-		case F:
-			this.midiNumber = (69 - 4) + (octave - 4) * 12;
-			break;
-		case FSHARP:
-			this.midiNumber = (69 - 3) + (octave - 4) * 12;
-			break;
-		case G:
-			this.midiNumber = (69 - 2) + (octave - 4) * 12;
-			break;
-		case GSHARP:
-			this.midiNumber = (69 - 1) + (octave - 4) * 12;
-			break;
-		}
-	}
-	
-	/** Sets the MIDI number of the note and its length
-	 * @param midiNumber
-	 * @param length
-	 */
-	public Note(int midiNumber, NoteValue length){
-		this.midiNumber = midiNumber;
-		this.length = length;
-	}
-	
-	/** Sets the frequency of the note, and then the length
-	 * @param frequency
-	 * @param length
-	 */
-	public Note (double frequency, NoteValue length){
-		setFrequency(frequency);
-		this.length = length;
-	}
-	
-	/**
-	 * Sets the MIDI note to default stuff. Easier on me than writing same code 40 times.
-	 */
-	private void setNoteDefault(){
-		this.midiNumber = 60;
-		this.length = NoteValue.QUARTER;
-	}
-	
-	/** Lets you set the frequency of the current MIDI note
-	 * @param frequency to set
-	 */
-	public void setFrequency(double frequency){
-		this.midiNumber = (int) (12 * (Math.log(frequency/440)/Math.log(2)) + 69);
-	}
-	
-	/** Gets you the frequency of the current MIDI note
-	 * @return frequency of the note
-	 */
-	public double getFrequency(){ //Hz
-		return Math.pow(2, ((double)this.midiNumber - 69)/12) * 440;
-	}
-	
-	/** Lets you set how long the note is
-	 * @param length the enum'd length of the note
-	 */
-	public void setNoteValue(NoteValue length){
-		this.length = length;
-	}
-	
-	/** The length of the note
-	 * @return NoteValue an enum to how long the note is
-	 */
-	public NoteValue getNoteValue(){
-		return this.length; 
-	}
-	
-	/** Lets you set the MIDI number of the current note
-	 * @param midi the MIDI number to set
-	 */
-	public void setMidiNumber(int midi){
-		this.midiNumber = midi;
-	}
-	
-	/** gets you the MIDI number of the current note
-	 * @return midi number of note
-	 */
-	public int getMidiNumber(){
-		return this.midiNumber;
-	}
-	
-	/** lets you set the octave of the note. Doesn't affect where it is in the scale.
-	 * @param octave the octave the note should take
-	 */
-	public void setOctave(int octave){
-		int last = this.midiNumber % 12;
-		this.midiNumber = octave * 12 + 12 + last;
-	}
-	
-	/** Gets you the octave of the current note.
-	 * @return the octave from -1 to 9
-	 */
-	public int getOctave(){
-		return (int) ((this.midiNumber / 12) - 1);
-	}
-	
-	/** Sets the note to sharp if it can be, else prints error and does nothing.
+	 * Default Constructor. 
 	 * 
+	 * Sets the sampling rate to 8 KHz
 	 */
-	public void setSharp(){
-		int check = this.midiNumber % 12;
-		switch(check){
-		case 0:
-		case 2:
-		case 5:
-		case 7:
-		case 9:
-			this.midiNumber++;
-			break;
-		default:
-			System.out.println("The current midi number cannot be made sharper.");
-		}
+	public Note() {
+		this(8); //default sample rate of 8 Khz
 	}
-	
-	/** Returns whether or not the note is sharp.
-	 * @return true - note is sharp, else false
+
+	/**
+	 * Constructor. 
+	 * 
+	 * Set the sampling rate of the note to sampleRate
+	 * 
+	 * @param sampleRate set the sampling rate of the note to this value in KHz.
 	 */
-	public boolean isSharp(){
-		int check = this.midiNumber % 12;
-		switch(check){
-		case 1:
-		case 3:
-		case 6:
-		case 8:
-		case 10:
-			return true;
-		default:
-			return false;
-		}
+	public Note(int sampleRate) {
+		this.sampleRate = sampleRate * Note.KILO_HERTZ;
 	}
-	
-	/** Returns the note of the current MIDI note
-	 * @return the note
+
+	/**
+	 * @return the sampling rate of the note
 	 */
-	public String getNote(){
-		int check = this.midiNumber % 12;
-		switch(check){
-		case 0:
-			return "C";
-		case 1:
-			return "C#";
-		case 2:
-			return "D";
-		case 3:
-			return "D#";
-		case 4:
-			return "E";
-		case 5:
-			return "F";
-		case 6:
-			return "F#";
-		case 7:
-			return "G";
-		case 8:
-			return "G#";
-		case 9:
-			return "A";
-		case 10:
-			return "A#";
-		default:
-			return "B";
-		}
+	public int getSampleRate() {
+		return this.sampleRate;
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+
+	/**
+	 * @param sampleRate set the sampling rate to sampleRate. Units of sampleRate are KHz 
 	 */
-	public String toString(){
-		return "SPN: " + getNote() + getOctave() + ", Frequency: " + getFrequency() + ", MIDI Number: " + getMidiNumber(); 
+	public void setSampleRate(int sampleRate) {
+		this.sampleRate = sampleRate * Note.KILO_HERTZ;
+	}
+
+	/**
+	 * todo: use the frequency calculation from your MIDI class.
+	 *     
+	 * @param noteNumber the note's note number
+	 * @return the frequency of the note
+	 */
+	public double getFrequency(int noteNumber) {
+		//assumes notes are centered around middle A
+		//no octaves 
+		return 440.0 * Math.pow(2.0, noteNumber/12.0);
+	}
+
+	/**
+	 * 
+	 * todo: delete this method once you setNote to work with the Tempo class 
+	 * this is just here to remind you to replace it in setNote
+	 * 
+	 * @param seconds
+	 * @return the duration of the note in seconds.
+	 */
+	public double getDuration(double seconds) {
+		return seconds;
 	}
 
 
+	/**
+	 * todo: modify signature and body as necessary to work with MIDI and Tempo classes.
+	 * 
+	 * change the signature to:
+	 * 
+	 * setNote(MIDI midi, Tempo tempo)
+	 * 
+	 * Generate an array of bytes in linear pcm format for playback.
+	 * 
+	 * @param noteNumber the note's note number
+	 * @param seconds the duration of the note.
+	 */
+	public void setNote(int noteNumber, double seconds) {
+
+		//how many samples will the note hold
+		note = new byte[(int)(this.getDuration(seconds) * this.getSampleRate())];
+
+		//sample_rate / frequency determines the number of samples
+		double numberOfSamples = this.getSampleRate() / this.getFrequency(noteNumber);
+		double sampleAngle = 2 * Math.PI /numberOfSamples;
+
+		for (int i = 0; i < note.length; i++) {
+			//determine the value of the sine wave at sample points
+			double sampleAt = i * sampleAngle; 
+
+			//multiply by 127.0 to transform sine value to a byte value
+			note[i] = (byte)(Math.sin(sampleAt) * 127.0);   	   
+		}
+	}
+
+	/**
+	 * @return the note byte array 
+	 */
+	public byte[] getNote() {
+		return this.note;
+	}
+
+	/**
+	 * @return the length of the array or how many samples in note
+	 */
+	public int getLength() {
+		return this.note.length;
+	}
 }
