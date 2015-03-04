@@ -1,5 +1,5 @@
 package com.mkarasz.hw5.bibliography;
 
-public abstract class WrittenMedia {
+public class Poem extends Bibliography{
 
 }
