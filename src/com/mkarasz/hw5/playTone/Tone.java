@@ -19,6 +19,9 @@ public class Tone {
 
 	public static void main(String[] args) throws LineUnavailableException {
 
+		MIDI midi = new MIDI(41, NoteValue.HALF);
+		Tempo tempo = new Tempo(120, NoteValue.HALF);
+		
 		Note note = new Note(16);
 
 		//Linear PCM data to be created with byte array from note.setNote()
@@ -41,9 +44,12 @@ public class Tone {
 			line = (SourceDataLine) AudioSystem.getLine(info);
 			line.open(format);
 
-			for(int i = -9; i < 3; i++) {
+			for(int i = 45; i < 90; i++) {
 				//todo: parameters to setNote should be a MIDI and a Tempo object
-				note.setNote(i, .25);
+				midi.setMidiNumber(i);
+				note.setNote(midi, tempo);
+				System.out.println("" + i);
+				//note.setNote(i, .25);
 				//longer note duration
 				//note.setNote(i, 1);
 

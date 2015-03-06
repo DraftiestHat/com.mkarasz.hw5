@@ -12,22 +12,24 @@ public class MIDI {
 	}
 	
 	int midiNumber = 0;
-	
+	NoteValue noteValue;
 	/**
 	 * Sets the MIDI to the default stuff, as seen in default helper method below.
 	 */
 	public MIDI(){
 		setNoteDefault();
+		noteValue = NoteValue.HALF;
 	}
 	
 	/** Parses out the string note and sets the length
 	 * @param note
 	 * @param length
 	 */
-	public MIDI(String note){
+	public MIDI(String note, NoteValue noteValue){
 		Note noteEnum = Note.A;
 		String letter;
 		int octave = 0;
+		this.noteValue = noteValue;
 		
 		if(note.matches("^[A-G]{1}[#]?[-]?[0-9]{1}$")) {
 			if(note.matches("[A-G]{1}[#]?[-]+[2-9]{1}")){ //checking for octaves less than -1
@@ -145,16 +147,18 @@ public class MIDI {
 	 * @param midiNumber
 	 * @param length
 	 */
-	public MIDI(int midiNumber){
+	public MIDI(int midiNumber, NoteValue noteValue){
 		this.midiNumber = midiNumber;
+		this.noteValue = noteValue;
 	}
 	
 	/** Sets the frequency of the note, and then the length
 	 * @param frequency
 	 * @param length
 	 */
-	public MIDI (double frequency){
+	public MIDI (double frequency, NoteValue noteValue){
 		setFrequency(frequency);
+		this.noteValue = noteValue;
 	}
 	
 	/**
@@ -162,6 +166,7 @@ public class MIDI {
 	 */
 	private void setNoteDefault(){
 		this.midiNumber = 60;
+		this.noteValue = NoteValue.HALF;
 	}
 	
 	/** Lets you set the frequency of the current MIDI note
@@ -275,6 +280,16 @@ public class MIDI {
 		}
 	}
 	
+	
+	
+	public NoteValue getNoteValue() {
+		return noteValue;
+	}
+
+	public void setNoteValue(NoteValue noteValue) {
+		this.noteValue = noteValue;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

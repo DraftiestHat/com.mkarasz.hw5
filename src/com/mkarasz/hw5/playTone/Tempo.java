@@ -55,10 +55,11 @@ public class Tempo {
 	 * Calculates how many seconds each note of a Tempo lasts.
 	 * @return the seconds the note lasts
 	 */
-	public double calcSeconds(){
+	public double getDuration(NoteValue noteValue){
 		double bps = bpm/60;
 		
-		switch (this.getNoteValue()){
+		//switch (this.getNoteValue()){
+		switch (noteValue){
 		case WHOLE:
 			return 4 / bps;
 		case HALF:

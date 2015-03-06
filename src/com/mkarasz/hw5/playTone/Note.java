@@ -37,7 +37,7 @@ public class Note {
 	public Note(int sampleRate) {
 		this.sampleRate = sampleRate * Note.KILO_HERTZ;
 	}
-
+	
 	/**
 	 * @return the sampling rate of the note
 	 */
@@ -52,31 +52,7 @@ public class Note {
 		this.sampleRate = sampleRate * Note.KILO_HERTZ;
 	}
 
-	/**
-	 * todo: use the frequency calculation from your MIDI class.
-	 *     
-	 * @param noteNumber the note's note number
-	 * @return the frequency of the note
-	 */
-	public double getFrequency(int noteNumber) {
-		//assumes notes are centered around middle A
-		//no octaves 
-		return 440.0 * Math.pow(2.0, noteNumber/12.0);
-	}
-
-	/**
-	 * 
-	 * todo: delete this method once you setNote to work with the Tempo class 
-	 * this is just here to remind you to replace it in setNote
-	 * 
-	 * @param seconds
-	 * @return the duration of the note in seconds.
-	 */
-	public double getDuration(double seconds) {
-		return seconds;
-	}
-
-
+	
 	/**
 	 * todo: modify signature and body as necessary to work with MIDI and Tempo classes.
 	 * 
@@ -89,13 +65,13 @@ public class Note {
 	 * @param noteNumber the note's note number
 	 * @param seconds the duration of the note.
 	 */
-	public void setNote(int noteNumber, double seconds) {
+	public void setNote(MIDI midi, Tempo tempo) {
 
 		//how many samples will the note hold
-		note = new byte[(int)(this.getDuration(seconds) * this.getSampleRate())];
+		note = new byte[(int)((tempo.getDuration(NoteValue.HALF)) * this.getSampleRate())];
 
 		//sample_rate / frequency determines the number of samples
-		double numberOfSamples = this.getSampleRate() / this.getFrequency(noteNumber);
+		double numberOfSamples = this.getSampleRate() / midi.getFrequency();
 		double sampleAngle = 2 * Math.PI /numberOfSamples;
 
 		for (int i = 0; i < note.length; i++) {
