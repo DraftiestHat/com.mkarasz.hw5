@@ -1,6 +1,7 @@
 package com.mkarasz.hw5.playTone;
 
 
+
 /** Implements (simply) a MIDI note and its length.
  * @author Matt
  *
@@ -11,6 +12,7 @@ public class MIDI {
 		C, CSHARP, D, DSHARP, E, F, FSHARP, G, GSHARP, A, ASHARP, B
 	}
 	
+	NoteValue length;
 	int midiNumber = 0;
 	
 	/**
@@ -24,7 +26,8 @@ public class MIDI {
 	 * @param note
 	 * @param length
 	 */
-	public MIDI(String note){
+	public MIDI(String note, NoteValue length){
+		this.length = length;
 		Note noteEnum = Note.A;
 		String letter;
 		int octave = 0;
@@ -145,16 +148,18 @@ public class MIDI {
 	 * @param midiNumber
 	 * @param length
 	 */
-	public MIDI(int midiNumber){
+	public MIDI(int midiNumber, NoteValue length){
 		this.midiNumber = midiNumber;
+		this.length = length;
 	}
 	
 	/** Sets the frequency of the note, and then the length
 	 * @param frequency
 	 * @param length
 	 */
-	public MIDI (double frequency){
+	public MIDI (double frequency, NoteValue length){
 		setFrequency(frequency);
+		this.length = length;
 	}
 	
 	/**
@@ -162,6 +167,7 @@ public class MIDI {
 	 */
 	private void setNoteDefault(){
 		this.midiNumber = 60;
+		this.length = NoteValue.QUARTER;
 	}
 	
 	/** Lets you set the frequency of the current MIDI note
@@ -177,7 +183,21 @@ public class MIDI {
 	public double getFrequency(){ //Hz
 		return Math.pow(2, ((double)this.midiNumber - 69)/12) * 440;
 	}
-		
+	
+	/** Lets you set how long the note is
+	 * @param length the enum'd length of the note
+	 */
+	public void setNoteValue(NoteValue length){
+		this.length = length;
+	}
+	
+	/** The length of the note
+	 * @return NoteValue an enum to how long the note is
+	 */
+	public NoteValue getNoteValue(){
+		return this.length; 
+	}
+	
 	/** Lets you set the MIDI number of the current note
 	 * @param midi the MIDI number to set
 	 */

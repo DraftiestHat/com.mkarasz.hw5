@@ -41,9 +41,9 @@ public class Tone {
 			line = (SourceDataLine) AudioSystem.getLine(info);
 			line.open(format);
 
-			for(int i = -9; i < 3; i++) {
+			for(int i = 60; i < ; i++) {
 				//todo: parameters to setNote should be a MIDI and a Tempo object
-				note.setNote(i, .25);
+				note.setNote(, .25);
 				//longer note duration
 				//note.setNote(i, 1);
 

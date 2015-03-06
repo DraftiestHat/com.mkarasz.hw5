@@ -78,24 +78,18 @@ public class Note {
 
 
 	/**
-	 * todo: modify signature and body as necessary to work with MIDI and Tempo classes.
-	 * 
-	 * change the signature to:
-	 * 
-	 * setNote(MIDI midi, Tempo tempo)
-	 * 
 	 * Generate an array of bytes in linear pcm format for playback.
 	 * 
-	 * @param noteNumber the note's note number
-	 * @param seconds the duration of the note.
+	 * @param midi
+	 * @param tempo
 	 */
-	public void setNote(int noteNumber, double seconds) {
+	public void setNote(MIDI midi, Tempo tempo) {
 
 		//how many samples will the note hold
-		note = new byte[(int)(this.getDuration(seconds) * this.getSampleRate())];
+		note = new byte[(int)(tempo.calcSeconds() * this.getSampleRate())];
 
 		//sample_rate / frequency determines the number of samples
-		double numberOfSamples = this.getSampleRate() / this.getFrequency(noteNumber);
+		double numberOfSamples = this.getSampleRate() / midi.getFrequency();
 		double sampleAngle = 2 * Math.PI /numberOfSamples;
 
 		for (int i = 0; i < note.length; i++) {
