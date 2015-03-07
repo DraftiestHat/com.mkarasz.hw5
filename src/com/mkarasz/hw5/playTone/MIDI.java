@@ -282,10 +282,17 @@ public class MIDI {
 	
 	
 	
+	/**
+	 * @return the length of the note.
+	 */
 	public NoteValue getNoteValue() {
 		return noteValue;
 	}
 
+	/**
+	 * Sets the length of the note.
+	 * @param noteValue
+	 */
 	public void setNoteValue(NoteValue noteValue) {
 		this.noteValue = noteValue;
 	}

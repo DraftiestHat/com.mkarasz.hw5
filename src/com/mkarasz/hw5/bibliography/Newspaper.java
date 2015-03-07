@@ -5,17 +5,16 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Newspaper extends Bibliography {
-	ArrayList<Author> authors;
-	GregorianCalendar date;
-	String Newspaper;
+	protected GregorianCalendar date;
+	protected String Newspaper;
 	
 	public Newspaper(){
-		this(null, null, null, null);
+		this(null, null, 0, 0, 0, null);
 	}
 	
-	public Newspaper(String authors, String title, GregorianCalendar date, String Newspaper){
+	public Newspaper(String authors, String title, int month, int day, int year, String Newspaper){
 		this.authors = setAuthors(authors);
-		this.date = date;
+		this.date = new GregorianCalendar(year, month, day);
 		this.title = title;
 		this.Newspaper = Newspaper;
 	}
@@ -58,17 +57,11 @@ public class Newspaper extends Bibliography {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
 	private void printName(Author currentAuthor){
-		if(currentAuthor.initials == null){
-			System.out.printf("%s, %s.", currentAuthor.lastName.toUpperCase(), currentAuthor.firstName.substring(0, 1).toUpperCase());
+		if(currentAuthor.getInitials() == null){
+			System.out.printf("%s, %s.", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase());
 		}
 		else
-			System.out.printf("%s, %s.%s.", currentAuthor.lastName.toUpperCase(), currentAuthor.firstName.substring(0, 1).toUpperCase(), currentAuthor.initials.toUpperCase());
+			System.out.printf("%s, %s.%s", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase(), currentAuthor.getInitials().toUpperCase());
 	}
 }

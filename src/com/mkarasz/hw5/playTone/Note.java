@@ -6,9 +6,6 @@ package com.mkarasz.hw5.playTone;
  * 
  * Creates a byte stream for playback by the Tone class.
  * 
- * todo: You need to make setNote use the MIDI class you wrote in HW 4 and the Tempo class
- * 
- * 
  */
 
 public class Note {
@@ -53,17 +50,11 @@ public class Note {
 	}
 
 	
-	/**
-	 * todo: modify signature and body as necessary to work with MIDI and Tempo classes.
-	 * 
-	 * change the signature to:
-	 * 
-	 * setNote(MIDI midi, Tempo tempo)
-	 * 
+	/** 
 	 * Generate an array of bytes in linear pcm format for playback.
 	 * 
-	 * @param noteNumber the note's note number
-	 * @param seconds the duration of the note.
+	 * @param midi the note to play
+	 * @param tempo how long the note lasts
 	 */
 	public void setNote(MIDI midi, Tempo tempo) {
 

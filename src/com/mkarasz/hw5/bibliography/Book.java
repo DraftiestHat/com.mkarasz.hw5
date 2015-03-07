@@ -3,11 +3,10 @@ package com.mkarasz.hw5.bibliography;
 import java.util.ArrayList;
 
 public class Book extends Bibliography {
-	ArrayList<Author> authors;
-	String publisher;
-	String publicationCity;
-	String publicationState;
-	int numberOfPages;
+	protected String publisher;
+	protected String publicationCity;
+	protected String publicationState;
+	protected int numberOfPages;
 	
 	public Book(){
 		this(null, 0, null, null, null, null, 0);
@@ -54,15 +53,15 @@ public class Book extends Bibliography {
 		
 		System.out.print(" ");
 		
-		System.out.println(this.year + ". " + this.title + ". " + this.publisher + ", " + this.publicationCity + ", " + this.publicationState + ", " + this.numberOfPages + " pp.");
+		System.out.println(this.year + ". " + this.title + ". " + this.publisher + ", " + this.publicationCity + ", " + this.publicationState + ". " + this.numberOfPages + " pp.");
 		
 	}
 	
 	private void printName(Author currentAuthor){
-		if(currentAuthor.initials == null){
-			System.out.printf("%s, %s.", currentAuthor.lastName.toUpperCase(), currentAuthor.firstName.substring(0, 1).toUpperCase());
+		if(currentAuthor.getInitials() == null){
+			System.out.printf("%s, %s.", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase());
 		}
 		else
-			System.out.printf("%s, %s.%s.", currentAuthor.lastName.toUpperCase(), currentAuthor.firstName.substring(0, 1).toUpperCase(), currentAuthor.initials.toUpperCase());
+			System.out.printf("%s, %s.%s", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase(), currentAuthor.getInitials().toUpperCase());
 	}
 }

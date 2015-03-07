@@ -3,16 +3,16 @@ package com.mkarasz.hw5.bibliography;
 import java.util.ArrayList;
 
 public class BookChapter extends Book{
-	ArrayList<Author> chapterAuthors;
-	String chapterTitle;
-	int beginPage;
-	int endPage;
+	protected ArrayList<Author> chapterAuthors;
+	protected String chapterTitle;
+	protected int beginPage;
+	protected int endPage;
 	
 	public BookChapter(){
-		this(null, 0, null, null, null, null, 0, null, null, 0, 0);
+		this(null, 0, null, null, null, null, null, null, 0, 0);
 	}
 	
-	public BookChapter(String authors, int year, String title, String publisher, String publicationCity, String publicationState, int numberOfPages, String chapterAuthors, String chapterTitle, int beginPage, int endPage){
+	public BookChapter(String authors, int year, String title, String chapterAuthors, String chapterTitle, String publisher, String publicationCity, String publicationState, int beginPage, int endPage){
 		super.authors = super.setAuthors(authors);
 		super.setTitle(title);
 		super.setYear(year);
@@ -100,19 +100,19 @@ public class BookChapter extends Book{
 	
 	
 	private void printName(Author currentAuthor){
-		if(currentAuthor.initials == null){
-			System.out.printf("%s, %s.", currentAuthor.lastName.toUpperCase(), currentAuthor.firstName.substring(0, 1).toUpperCase());
+		if(currentAuthor.getInitials() == null){
+			System.out.printf("%s, %s.", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase());
 		}
 		else
-			System.out.printf("%s, %s.%s.", currentAuthor.lastName.toUpperCase(), currentAuthor.firstName.substring(0, 1).toUpperCase(), currentAuthor.initials.toUpperCase());
+			System.out.printf("%s, %s.%s", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase(), currentAuthor.getInitials().toUpperCase());
 	}
 	
 	private void printAltName(Author currentAuthor){
-		if(currentAuthor.initials == null){
-			System.out.printf("%s. %s", currentAuthor.firstName.substring(0, 1).toUpperCase(), currentAuthor.lastName.toUpperCase());
+		if(currentAuthor.getInitials() == null){
+			System.out.printf("%s. %s", currentAuthor.getFirstName().substring(0, 1).toUpperCase(), currentAuthor.getLastName().toUpperCase());
 		}
 		else
-			System.out.printf("%s.%s. %s", currentAuthor.firstName.substring(0, 1).toUpperCase(), currentAuthor.initials.toUpperCase(), currentAuthor.lastName.toUpperCase());
+			System.out.printf("%s.%s. %s", currentAuthor.getFirstName().substring(0, 1).toUpperCase(), currentAuthor.getInitials().toUpperCase(), currentAuthor.getLastName().toUpperCase());
 	}
 	
 	

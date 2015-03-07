@@ -1,5 +1,6 @@
 package com.mkarasz.hw5.bibliography;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,30 +8,40 @@ import java.util.GregorianCalendar;
 
 public class WebReference extends Bibliography {
 	// NEEDS THREE CONSTRUCTORS
-	
-	ArrayList<Author> authors; // optional
-	GregorianCalendar retrievalDate;
-	URL url;
+		
+	protected GregorianCalendar retrievalDate;
+	protected URL url;
 	
 	
 	public WebReference(){
-		this(null, null, 0, null, null);
+		this(null, null, 0, 0, 0, 0, null);
 	}
 	
-	public WebReference(String title, int year, GregorianCalendar retrievalDate, URL url){
+	public WebReference(String title, int year,  int monthAccess, int dayAccess, int yearAccess, String url){
 		this.title = title;
 		this.year = year;
-		this.retrievalDate = retrievalDate;
-		this.url = url;
+		this.retrievalDate = new GregorianCalendar(yearAccess, monthAccess, dayAccess);
+		
+		try {
+			this.url = new URL(url);
+		} catch (MalformedURLException e) {
+			System.out.println("Your URL is bad and you should feel bad!");
+			System.exit(1);
+		}
 		this.authors = null;
 	}
 	
-	public WebReference(String title, String authors, int year, GregorianCalendar retrievalDate, URL url){
+	public WebReference(String title, String authors, int year, int monthAccess, int dayAccess, int yearAccess, String url){
 		this.title = title;
 		this.year = year;
 		this.authors = setAuthors(authors);
-		this.retrievalDate = retrievalDate;
-		this.url = url;
+		this.retrievalDate = new GregorianCalendar(yearAccess, monthAccess, dayAccess);
+		try {
+			this.url = new URL(url);
+		} catch (MalformedURLException e) {
+			System.out.println("Your URL is bad and you should feel bad!");
+			System.exit(1);
+		}
 	}
 	
 	public void print(){
@@ -72,13 +83,12 @@ public class WebReference extends Bibliography {
 		
 	}
 	
-	
 	private void printName(Author currentAuthor){
-		if(currentAuthor.initials == null){
-			System.out.printf("%s, %s.", currentAuthor.lastName.toUpperCase(), currentAuthor.firstName.substring(0, 1).toUpperCase());
+		if(currentAuthor.getInitials() == null){
+			System.out.printf("%s, %s.", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase());
 		}
 		else
-			System.out.printf("%s, %s.%s.", currentAuthor.lastName.toUpperCase(), currentAuthor.firstName.substring(0, 1).toUpperCase(), currentAuthor.initials.toUpperCase());
+			System.out.printf("%s, %s.%s", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase(), currentAuthor.getInitials().toUpperCase());
 	}
 	
 }

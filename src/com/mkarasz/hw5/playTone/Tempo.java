@@ -43,10 +43,16 @@ public class Tempo {
 		this.bpm = bpm;
 	}
 
+	/**
+	 * @return
+	 */
 	public NoteValue getNoteValue() {
 		return noteValue;
 	}
 
+	/**
+	 * @param noteValue
+	 */
 	public void setNoteValue(NoteValue noteValue) {
 		this.noteValue = noteValue;
 	}

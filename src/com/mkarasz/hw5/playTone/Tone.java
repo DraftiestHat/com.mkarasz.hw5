@@ -48,7 +48,7 @@ public class Tone {
 				//todo: parameters to setNote should be a MIDI and a Tempo object
 				midi.setMidiNumber(i);
 				note.setNote(midi, tempo);
-				System.out.println("" + i);
+				//System.out.println("" + i);
 				//note.setNote(i, .25);
 				//longer note duration
 				//note.setNote(i, 1);

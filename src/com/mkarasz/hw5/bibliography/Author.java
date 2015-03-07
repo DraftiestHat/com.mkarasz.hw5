@@ -1,9 +1,9 @@
 package com.mkarasz.hw5.bibliography;
 
 public class Author {
-	String firstName;
-	String lastName;
-	String initials;
+	private String firstName;
+	private String lastName;
+	private String initials;
 	
 	public Author(String author){
 			
@@ -20,8 +20,57 @@ public class Author {
 		}
 		this.lastName = s[s.length - 1];
 		
-	}
+	}	
 	
+	
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	/**
+	 * @return the initials
+	 */
+	public String getInitials() {
+		return initials;
+	}
+
+
+	/**
+	 * @param initials the initials to set
+	 */
+	public void setInitials(String initials) {
+		this.initials = initials;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

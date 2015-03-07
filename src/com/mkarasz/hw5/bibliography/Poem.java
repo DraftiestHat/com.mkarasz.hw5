@@ -4,14 +4,13 @@ import java.util.ArrayList;
 
 public class Poem extends Bibliography{
 	// NEEDS THREE CONSTRUCTORS
-	ArrayList<Author> authors;
-	String collection;
-	String editor; //optional
-	String publicationState;
-	String publisher;
-	int beginPage;
-	int endPage;
-	String medium;
+	protected String collection;
+	protected String editor; //optional
+	protected String publicationState;
+	protected String publisher;
+	protected int beginPage;
+	protected int endPage;
+	protected String medium;
 	
 	Poem(){
 		this(null, null, 0, null, null, null, 0, 0, null);
@@ -90,10 +89,10 @@ public class Poem extends Bibliography{
 	
 	
 	private void printName(Author currentAuthor){
-		if(currentAuthor.initials == null){
-			System.out.printf("%s, %s", currentAuthor.lastName, currentAuthor.firstName);
+		if(currentAuthor.getInitials() == null){
+			System.out.printf("%s, %s", currentAuthor.getLastName(), currentAuthor.getFirstName());
 		}
 		else
-			System.out.printf("%s, %s %s", currentAuthor.lastName, currentAuthor.firstName, currentAuthor.initials);
+			System.out.printf("%s, %s %s", currentAuthor.getLastName(), currentAuthor.getFirstName(), currentAuthor.getInitials());
 	}
 }

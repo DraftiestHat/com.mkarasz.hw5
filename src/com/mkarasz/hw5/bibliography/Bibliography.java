@@ -3,9 +3,9 @@ package com.mkarasz.hw5.bibliography;
 import java.util.ArrayList;
 
 public abstract class Bibliography {
-	//ArrayList<Author> authors;
-	int year;
-	String title;
+	protected ArrayList<Author> authors;
+	protected int year;
+	protected String title;
 	
 	/*protected ArrayList<Author> getAuthors() {
 		return this.authors;
@@ -23,6 +23,9 @@ public abstract class Bibliography {
 		return s;
 	}*/
 	protected ArrayList<Author> setAuthors(String authors) {
+		if(authors == null){
+			return null;
+		}
 		 ArrayList<Author> list = new ArrayList<Author>();
 		 
 		 String[] s = authors.split(", ");
