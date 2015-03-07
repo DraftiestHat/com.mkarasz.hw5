@@ -34,7 +34,7 @@ public class WebReference extends Bibliography {
 	public WebReference(String title, String authors, int year, int monthAccess, int dayAccess, int yearAccess, String url){
 		this.title = title;
 		this.year = year;
-		this.authors = setAuthors(authors);
+		this.authors = setAuthors(authors, this.authors);
 		this.retrievalDate = new GregorianCalendar(yearAccess, monthAccess, dayAccess);
 		try {
 			this.url = new URL(url);
@@ -44,9 +44,11 @@ public class WebReference extends Bibliography {
 		}
 	}
 	
-	public void print(){
+	@Override
+	public String toString(){
 		ArrayList<Author> list = this.authors;
 		Author currentAuthor;
+		String sRet = "";
 		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 		
 		if(list == null){
@@ -55,40 +57,40 @@ public class WebReference extends Bibliography {
 		}
 		else if(list.size() == 1){
 			currentAuthor = list.get(0);
-			printName(currentAuthor);
-			System.out.print(". ");
+			sRet += printName(currentAuthor) + " ";
 		}
 		else if(list.size() == 2){
 			currentAuthor = list.get(0);
-			printName(currentAuthor);
-			System.out.print(" AND ");
+			sRet += printName(currentAuthor) + " AND ";
 			currentAuthor = list.get(1);
-			printName(currentAuthor);
-			System.out.print(". ");
+			sRet += printName(currentAuthor) + ". ";
 		}
 		else {
 			for(int i = 0; i < list.size() - 1; i++){
 				currentAuthor = list.get(i);
-				printName(currentAuthor);
-				System.out.print(", ");
+				sRet += printName(currentAuthor) + ", ";
 			}
-			System.out.print("AND ");
 			currentAuthor = list.get(list.size() - 1);
-			printName(currentAuthor);
-			System.out.print(". ");
+			sRet += "AND " + printName(currentAuthor) + ". ";
 		}
 		
-		System.out.println("" + this.title + "(" + this.year + "). Retrieved " + months[this.retrievalDate.get(Calendar.MONTH)] + " " + this.retrievalDate.get(Calendar.DAY_OF_MONTH) + ", " + this.retrievalDate.get(Calendar.YEAR) + " from " + this.url.toString());
+		sRet += "" + this.title + ". (" + this.year + "). Retrieved " + months[this.retrievalDate.get(Calendar.MONTH)] + " " + this.retrievalDate.get(Calendar.DAY_OF_MONTH) + ", " + this.retrievalDate.get(Calendar.YEAR) + " from " + this.url.toString();
+		return sRet;
 		
 		
 	}
 	
-	private void printName(Author currentAuthor){
+	private String printName(Author currentAuthor){
+		String s = null;
+		
 		if(currentAuthor.getInitials() == null){
-			System.out.printf("%s, %s.", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase());
+			s = currentAuthor.getLastName() + ", " + currentAuthor.getFirstName().substring(0, 1) + ".";
 		}
 		else
-			System.out.printf("%s, %s.%s", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase(), currentAuthor.getInitials().toUpperCase());
+			s = currentAuthor.getLastName() + ", " + currentAuthor.getFirstName().substring(0, 1) + "." + currentAuthor.getInitials().toUpperCase();	
+		
+	
+		return s;
 	}
 	
 }

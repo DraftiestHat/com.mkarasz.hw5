@@ -13,7 +13,7 @@ public class JournalArticle extends Bibliography{
 	}
 	
 	public JournalArticle(String authors, int year, String title, String journalName, int volume, int beginPage, int endPage){
-		this.authors = super.setAuthors(authors);
+		this.authors = super.setAuthors(authors, this.authors);
 		super.setTitle(title);
 		super.setYear(year);
 		this.journalName = journalName;
@@ -22,44 +22,47 @@ public class JournalArticle extends Bibliography{
 		this.endPage = endPage;
 	}
 	
-	public void print(){
+	public String toString(){
 		ArrayList<Author> list = this.authors;
 		Author currentAuthor;
+		String retString = "";
+		
 		if(list == null){
 			System.out.println("ERROR: No author list.");
-			return;
+			return null;
 		}
 		else if(list.size() == 1){
 			currentAuthor = list.get(0);
-			printName(currentAuthor);
+			retString += printName(currentAuthor);
 		}
 		else if(list.size() == 2){
 			currentAuthor = list.get(0);
-			printName(currentAuthor);
-			System.out.print(" AND ");
+			retString += printName(currentAuthor) + " AND ";
 			currentAuthor = list.get(1);
-			printName(currentAuthor);
+			retString += printName(currentAuthor);
 		}
 		else {
 			for(int i = 0; i < list.size() - 1; i++){
 				currentAuthor = list.get(i);
-				printName(currentAuthor);
-				System.out.print(", ");
+				retString += printName(currentAuthor) + ", ";
 			}
-			System.out.print("AND ");
+			retString += "AND ";
 			currentAuthor = list.get(list.size() - 1);
-			printName(currentAuthor);
+			retString += printName(currentAuthor);
 		}
 		
-		System.out.print(" ");
-		System.out.println(this.year + ". " + this.title + ". " + this.journalName + ". vol. " + this.volume + ". pp. " + this.beginPage + "-" + this.endPage);
+		retString += " " + this.year + ". " + this.title + ". " + this.journalName + ". vol. " + this.volume + ". pp. " + this.beginPage + "-" + this.endPage;
+		return retString;
 	}
 	
-	private void printName(Author currentAuthor){
+	private String printName(Author currentAuthor){
+		String s = null;
 		if(currentAuthor.getInitials() == null){
-			System.out.printf("%s, %s", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase());
+			s = "" + currentAuthor.getLastName().toUpperCase() + ", " + currentAuthor.getFirstName().substring(0, 1).toUpperCase();
+			
 		}
 		else
-			System.out.printf("%s, %s.%s", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase(), currentAuthor.getInitials().toUpperCase());
+			s = currentAuthor.getLastName().toUpperCase() + ", " + currentAuthor.getFirstName().substring(0, 1).toUpperCase() + "." + currentAuthor.getInitials().toUpperCase();
+		return s;
 	}
 }

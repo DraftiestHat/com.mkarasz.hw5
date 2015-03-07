@@ -22,12 +22,19 @@ public abstract class Bibliography {
 		
 		return s;
 	}*/
-	protected ArrayList<Author> setAuthors(String authors) {
+	protected ArrayList<Author> setAuthors(String authors, ArrayList<Author> authorsArray) {
 		if(authors == null){
 			return null;
 		}
-		 ArrayList<Author> list = new ArrayList<Author>();
-		 
+		
+		ArrayList<Author> list = null;
+		
+		if(authorsArray == null){
+			list = new ArrayList<Author>();
+		}
+		else
+			list = authorsArray;
+		
 		 String[] s = authors.split(", ");
 		 String[] hold;
 		 

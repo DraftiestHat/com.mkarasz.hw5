@@ -13,55 +13,57 @@ public class Newspaper extends Bibliography {
 	}
 	
 	public Newspaper(String authors, String title, int month, int day, int year, String Newspaper){
-		this.authors = setAuthors(authors);
+		this.authors = setAuthors(authors, this.authors);
 		this.date = new GregorianCalendar(year, month, day);
 		this.title = title;
 		this.Newspaper = Newspaper;
 	}
 	
-	
-	public void print(){
+	@Override
+	public String toString(){
 		ArrayList<Author> list = this.authors;
 		Author currentAuthor;
+		String retString = "";
 		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 		
 		if(list == null){
 			System.out.println("ERROR: No author list.");
-			return;
+			return null;
 		}
 		else if(list.size() == 1){
 			currentAuthor = list.get(0);
-			printName(currentAuthor);
+			retString += printName(currentAuthor);
 		}
 		else if(list.size() == 2){
 			currentAuthor = list.get(0);
-			printName(currentAuthor);
-			System.out.print(" AND ");
+			retString += printName(currentAuthor) + " AND ";
 			currentAuthor = list.get(1);
-			printName(currentAuthor);
+			retString += printName(currentAuthor);
 		}
 		else {
 			for(int i = 0; i < list.size() - 1; i++){
 				currentAuthor = list.get(i);
-				printName(currentAuthor);
-				System.out.print(", ");
+				retString += printName(currentAuthor) + ", ";
 			}
-			System.out.print("AND ");
+			retString += "AND ";
 			currentAuthor = list.get(list.size() - 1);
-			printName(currentAuthor);
+			retString += printName(currentAuthor);
 		}
 	
 			
-		System.out.println(" " + months[this.date.get(Calendar.MONTH)] + " " + this.date.get(Calendar.DAY_OF_MONTH) + ", " + this.date.get(Calendar.YEAR) + ". " + this.title + ". " + this.Newspaper + ".");
-		
+		retString += " " + months[this.date.get(Calendar.MONTH)] + " " + this.date.get(Calendar.DAY_OF_MONTH) + ", " + this.date.get(Calendar.YEAR) + ". " + this.title + ". " + this.Newspaper + ".";
+		return retString;
 	}
 	
 	
-	private void printName(Author currentAuthor){
+	private String printName(Author currentAuthor){
+		String s = null;
 		if(currentAuthor.getInitials() == null){
-			System.out.printf("%s, %s.", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase());
+			s = "" + currentAuthor.getLastName().toUpperCase() + ", " + currentAuthor.getFirstName().substring(0, 1).toUpperCase() + ".";
+			
 		}
 		else
-			System.out.printf("%s, %s.%s", currentAuthor.getLastName().toUpperCase(), currentAuthor.getFirstName().substring(0, 1).toUpperCase(), currentAuthor.getInitials().toUpperCase());
+			s = currentAuthor.getLastName().toUpperCase() + ", " + currentAuthor.getFirstName().substring(0, 1).toUpperCase() + "." + currentAuthor.getInitials().toUpperCase();
+		return s;
 	}
 }
