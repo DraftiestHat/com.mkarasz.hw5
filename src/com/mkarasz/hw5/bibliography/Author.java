@@ -5,6 +5,9 @@ public class Author {
 	private String lastName;
 	private String initials;
 	
+	/** Takes a string with an author and splits it up
+	 * @param author the author to split.
+	 */
 	public Author(String author){
 			
 		String[] s = author.split(" ");
@@ -23,7 +26,7 @@ public class Author {
 	}	
 	
 	
-	/**
+	/** Gets the first name of the author
 	 * @return the firstName
 	 */
 	public String getFirstName() {
@@ -31,7 +34,7 @@ public class Author {
 	}
 
 
-	/**
+	/** Sets the first name of the author
 	 * @param firstName the firstName to set
 	 */
 	public void setFirstName(String firstName) {
@@ -39,7 +42,7 @@ public class Author {
 	}
 
 
-	/**
+	/**Gets the last name of the author
 	 * @return the lastName
 	 */
 	public String getLastName() {
@@ -47,7 +50,7 @@ public class Author {
 	}
 
 
-	/**
+	/** Sets the lastName name of the author
 	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) {
@@ -55,7 +58,7 @@ public class Author {
 	}
 
 
-	/**
+	/**Gets the initials of the author
 	 * @return the initials
 	 */
 	public String getInitials() {
@@ -63,7 +66,7 @@ public class Author {
 	}
 
 
-	/**
+	/** Sets the initials of the author
 	 * @param initials the initials to set
 	 */
 	public void setInitials(String initials) {

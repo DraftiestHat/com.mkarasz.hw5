@@ -12,25 +12,36 @@ public class WebReference extends Bibliography {
 	protected GregorianCalendar retrievalDate;
 	protected URL url;
 	
-	
+	/**
+	 * Default constructor
+	 */
 	public WebReference(){
 		this(null, null, 0, 0, 0, 0, null);
 	}
 	
+	/**
+	 * Constructor to set everything except authors
+	 * @param title title of webpage
+	 * @param year year webpage was put up
+	 * @param monthAccess month web site was accessed
+	 * @param dayAccess day web site was accessed
+	 * @param yearAccess year web site was accessed
+	 * @param url the url of the website
+	 */
 	public WebReference(String title, int year,  int monthAccess, int dayAccess, int yearAccess, String url){
-		this.title = title;
-		this.year = year;
-		this.retrievalDate = new GregorianCalendar(yearAccess, monthAccess, dayAccess);
-		
-		try {
-			this.url = new URL(url);
-		} catch (MalformedURLException e) {
-			System.out.println("Your URL is bad and you should feel bad!");
-			System.exit(1);
-		}
-		this.authors = null;
+		this(title, null, year, monthAccess, dayAccess, yearAccess, url);
 	}
 	
+	/**
+	 * Constructor to set everything
+	 * @param title title of webpage
+	 * @param authors the authors of the webpage
+	 * @param year year webpage was put up
+	 * @param monthAccess month web site was accessed
+	 * @param dayAccess day web site was accessed
+	 * @param yearAccess year web site was accessed
+	 * @param url the url of the website
+	 */
 	public WebReference(String title, String authors, int year, int monthAccess, int dayAccess, int yearAccess, String url){
 		this.title = title;
 		this.year = year;
@@ -44,6 +55,9 @@ public class WebReference extends Bibliography {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString(){
 		ArrayList<Author> list = this.authors;
@@ -80,6 +94,10 @@ public class WebReference extends Bibliography {
 		
 	}
 	
+	/** Returns a string that prints the name correctly.
+	 * @param currentAuthor the author to print
+	 * @return the name in the right format
+	 */
 	private String printName(Author currentAuthor){
 		String s = null;
 		

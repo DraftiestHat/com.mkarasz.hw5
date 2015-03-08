@@ -8,10 +8,21 @@ public class Newspaper extends Bibliography {
 	protected GregorianCalendar date;
 	protected String Newspaper;
 	
+	/** Default constructor
+	 * 
+	 */
 	public Newspaper(){
 		this(null, null, 0, 0, 0, null);
 	}
 	
+	/** Sets up newspaper.
+	 * @param authors the authors to print
+	 * @param title title of the article
+	 * @param month the month the article was published
+	 * @param day the day the article was published
+	 * @param year the year the article was published
+	 * @param Newspaper the newspaper that published the article
+	 */
 	public Newspaper(String authors, String title, int month, int day, int year, String Newspaper){
 		this.authors = setAuthors(authors, this.authors);
 		this.date = new GregorianCalendar(year, month, day);
@@ -19,6 +30,9 @@ public class Newspaper extends Bibliography {
 		this.Newspaper = Newspaper;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString(){
 		ArrayList<Author> list = this.authors;
@@ -56,6 +70,10 @@ public class Newspaper extends Bibliography {
 	}
 	
 	
+	/** Returns a string that prints the name correctly.
+	 * @param currentAuthor the author to print
+	 * @return the name in the right format
+	 */
 	private String printName(Author currentAuthor){
 		String s = null;
 		if(currentAuthor.getInitials() == null){

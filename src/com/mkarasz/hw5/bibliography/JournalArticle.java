@@ -8,10 +8,25 @@ public class JournalArticle extends Bibliography{
 	protected int beginPage;
 	protected int endPage;
 	
+	
+	/**
+	 * Default constructor
+	 */
 	public JournalArticle() {
 		this(null, 0, null, null, 0, 0, 0);
 	}
 	
+	
+	/**
+	 * Sets all stuff in journal article
+	 * @param authors the authors
+	 * @param year the year of the journal
+	 * @param title the title of the article
+	 * @param journalName where the article was published
+	 * @param volume the number of the voluem
+	 * @param beginPage
+	 * @param endPage
+	 */
 	public JournalArticle(String authors, int year, String title, String journalName, int volume, int beginPage, int endPage){
 		this.authors = super.setAuthors(authors, this.authors);
 		super.setTitle(title);
@@ -22,6 +37,9 @@ public class JournalArticle extends Bibliography{
 		this.endPage = endPage;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		ArrayList<Author> list = this.authors;
 		Author currentAuthor;
@@ -55,6 +73,10 @@ public class JournalArticle extends Bibliography{
 		return retString;
 	}
 	
+	/** Returns a string that prints the name correctly.
+	 * @param currentAuthor the author to print
+	 * @return the name in the right format
+	 */
 	private String printName(Author currentAuthor){
 		String s = null;
 		if(currentAuthor.getInitials() == null){

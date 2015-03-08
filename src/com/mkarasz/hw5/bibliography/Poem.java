@@ -12,23 +12,42 @@ public class Poem extends Bibliography{
 	protected int endPage;
 	protected String medium;
 	
+	/**
+	 * Default constructor
+	 */
 	Poem(){
 		this(null, null, 0, null, null, null, 0, 0, null);
 	}
 	
+	/**
+	 * Sets up everything but without the editor
+	 * @param authors the authors of the poem
+	 * @param title the title of the poem
+	 * @param year  the year the poem was published
+	 * @param collection what the poem was published in 
+	 * @param publicationState where the poem was published
+	 * @param publisher who published the poem
+	 * @param beginPage starting page of poem
+	 * @param endPage ending page of the poem
+	 * @param medium how it was published (print/online)
+	 */
 	Poem(String authors, String title, int year, String collection, String publicationState, String publisher, int beginPage, int endPage, String medium){
-		this.editor = null;
-		this.authors = setAuthors(authors, this.authors);
-		this.title = title;
-		this.year = year;
-		this.collection = collection;
-		this.publicationState = publicationState;
-		this.publisher = publisher;
-		this.beginPage = beginPage;
-		this.endPage = endPage;
-		this.medium = medium;
+		this(authors, title, year, collection, null, publicationState, publisher, beginPage, endPage, medium);
 	}
 	
+	/**
+	 * Sets up everything and the editor
+	 * @param authors the authors of the poem
+	 * @param title the title of the poem
+	 * @param year  the year the poem was published
+	 * @param collection what the poem was published in
+	 * @param editor the editor of the poem 
+	 * @param publicationState where the poem was published
+	 * @param publisher who published the poem
+	 * @param beginPage starting page of poem
+	 * @param endPage ending page of the poem
+	 * @param medium how it was published (print/online)
+	 */
 	Poem(String authors, String title, int year, String collection, String editor, String publicationState, String publisher, int beginPage, int endPage, String medium){
 		this.editor = editor;
 		this.authors = setAuthors(authors, this.authors);
@@ -42,6 +61,9 @@ public class Poem extends Bibliography{
 		this.medium = medium;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString(){
 		ArrayList<Author> list = this.authors;
@@ -82,7 +104,10 @@ public class Poem extends Bibliography{
 		return sRet;
 	}
 	
-	
+	/** Returns a string that prints the name correctly.
+	 * @param currentAuthor the author to print
+	 * @return the name in the right format
+	 */
 	private String printName(Author currentAuthor){
 		String s = null;
 		if(currentAuthor.getInitials() == null){

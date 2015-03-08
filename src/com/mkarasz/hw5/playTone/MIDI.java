@@ -13,6 +13,7 @@ public class MIDI {
 	
 	int midiNumber = 0;
 	NoteValue noteValue;
+	
 	/**
 	 * Sets the MIDI to the default stuff, as seen in default helper method below.
 	 */

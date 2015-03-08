@@ -6,25 +6,17 @@ public class Test {
 	public static void main(String[] args) {
 		JournalArticle art = new JournalArticle("Adam M. Abdelbar and Sam Morris Hedetniemi", 1998, "Approximating MAPs for belief networks in NP-hard and other theorems", "Artificial Intelligence", 102, 21, 38);
 		System.out.println(art.toString());
-		//System.out.println();
 		
 		Newspaper news = new Newspaper("Edward White", "Chatting a singer up the pop charts", 3, 23, 1999, "Wall Street Journal");
 
 		System.out.println(news.toString());
-		//System.out.println();
 		
-		//	public BookChapter(String authors, int year, String title, String chapterAuthors, String chapterTitle, String publisher, String publicationCity, String publicationState, int beginPage, int endPage)
-		BookChapter bookChap;// = new BookChapter("Hunter S. Thompson", 1976, "Richard Nixon and how the Washington Redskins lost the Vietnam War", "Tom Wolfe", "New Journalism Anthology", "Random House", "New York", "NY", 17, 52);
-		//bookChap.print();
-		//System.out.println(bookChap.toString());
+		BookChapter bookChap;
 		bookChap = new BookChapter("Tom Wolfe", 1976, "New Journalism Anthology", "Hunter S. Thompson", "Richard Nixon and how the Washington Redskins lost the Vietnam War", "Random House", "New York", "NY", 17, 52);
-		//bookChap.print();
 		System.out.println(bookChap.toString());
 		bookChap = new BookChapter("Robert Wison and Frank Keil", 1999, "The Encyclopedia of Cognitive Science", "Robert Greiner", "Explanation-based learning", "MIT Press", "Cambridge", "MA", 301, 303);
-		//bookChap.print();
 		System.out.println(bookChap.toString());
 		bookChap = new BookChapter("Mark Twain, Henry David Thoreau, and Ralph Waldo Emerson", 1881, "Fear of the Opulent Eyeball and Other Meditations Along the Reflecting Pond", "Mark Twain", "A Connecticut Yankee in Transcendental Land", "Random House", "New York", "NY", 117, 132);  
-		//bookChap.print();
 		System.out.println(bookChap.toString());
 		
 		Book book;
@@ -33,10 +25,8 @@ public class Test {
 		System.out.println(book.toString());
 		
 		book = new Book("Mark Twain and Henry David Thoreau", 1880, "The Book That Never Was", "Random House", "New York", "NY", 608);
-		//book.print();
 		System.out.println(book.toString());
 		book = new Book("Mark Twain, Henry David Thoreau, and Ralph Waldo Emerson", 1881, "Fear of the Opulent Eyeball and Other Meditations Along the Reflecting Pond", "Random House", "New York", "NY", 1573); 
-		//book.print();
 		System.out.println(book.toString());
 		
 		//don't name this class "URL" -- Java already uses that name
@@ -49,7 +39,7 @@ public class Test {
 		System.out.println(poem.toString());
 		poem = new Poem("Walt Whitman", "I Sing the Body Electric.", 1991, "Selected Poems.", "New York", "Dover", 12, 19, "Print"); // without editor
 		System.out.println(poem.toString());
-		//Poem(String authors, String title, int year, String collection, String publicationState, String publisher, int beginPage, int endPage, String medium)
+		
 	}
 
 }

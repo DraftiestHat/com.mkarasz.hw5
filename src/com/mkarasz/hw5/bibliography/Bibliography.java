@@ -7,21 +7,12 @@ public abstract class Bibliography {
 	protected int year;
 	protected String title;
 	
-	/*protected ArrayList<Author> getAuthors() {
-		return this.authors;
-		/*int i = 0;
-		String s = null;
-		while(i < this.authors.size()){
-			//System.out.println(this.authors.size() + " ");
-			if(s == null)
-				s = this.authors.get(i).toString() + " "; 
-			else
-				s += this.authors.get(i).toString() + " ";
-			i++;
-		}
-		
-		return s;
-	}*/
+	
+	/** Sets up the arrayList of authors
+	 * @param authors - the authors to split up
+	 * @param authorsArray the array to put the authors into
+	 * @return the array the authors are in.
+	 */
 	protected ArrayList<Author> setAuthors(String authors, ArrayList<Author> authorsArray) {
 		if(authors == null){
 			return null;
@@ -60,15 +51,31 @@ public abstract class Bibliography {
 		 
 		 return list;
 	}
+	
+	/** Returns the year
+	 * @return the year
+	 */
 	public int getYear() {
 		return year;
 	}
+	
+	/**Sets the year
+	 * @param year
+	 */
 	public void setYear(int year) {
 		this.year = year;
 	}
+	
+	/** Returns the title
+	 * @return
+	 */
 	public String getTitle() {
 		return title;
 	}
+	
+	/**sets the title
+	 * @param title
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}

@@ -8,10 +8,22 @@ public class Book extends Bibliography {
 	protected String publicationState;
 	protected int numberOfPages;
 	
+	/**
+	 * Default constructor.
+	 */
 	public Book(){
 		this(null, 0, null, null, null, null, 0);
 	}
 	
+	/** Constructor that sets everything
+	 * @param authors the authors of the book
+	 * @param year the year the book was published
+	 * @param title the title of the book
+	 * @param publisher the publisher of the book
+	 * @param publicationCity city where the book was published
+	 * @param publicationState state where book was published
+	 * @param numberOfPages number of pages in the book
+	 */
 	public Book(String authors, int year, String title, String publisher, String publicationCity, String publicationState, int numberOfPages){
 		this.authors = super.setAuthors(authors, this.authors);
 		super.setTitle(title);
@@ -22,6 +34,9 @@ public class Book extends Bibliography {
 		this.numberOfPages = numberOfPages;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString(){
 		ArrayList<Author> list = this.authors;
@@ -56,6 +71,10 @@ public class Book extends Bibliography {
 		return retString;
 	}
 	
+	/** Returns a string that prints the name correctly.
+	 * @param currentAuthor the author to print
+	 * @return the name in the right format
+	 */
 	private String printName(Author currentAuthor){
 		String s = null;
 		if(currentAuthor.getInitials() == null){
